@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+:root {
+  /* Pearl Dental Studio — clinical teal + warm pearl */
+  --background: #e9f1f1;
+  --paper: #ffffff;
+  --foreground: #0e2a2f;
+  --ink-soft: #5c727a;
+  --accent: #12a594;
+  --accent-deep: #0a6b60;
+  --accent-soft: #8fded3;
+  --blush: #f3b6a6;
+  --gold: #d8b06a;
+  --line: rgba(14, 42, 47, 0.12);
+  --mist: rgba(143, 222, 211, 0.18);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-paper: var(--paper);
+  --color-foreground: var(--foreground);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-blush: var(--blush);
+  --color-gold: var(--gold);
+  --color-line: var(--line);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+/* ambient clinical glow behind sections */
+.clinic-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(42% 36% at 12% 12%, rgba(18, 165, 148, 0.16), transparent 70%),
+    radial-gradient(40% 40% at 88% 8%, rgba(243, 182, 166, 0.16), transparent 72%),
+    radial-gradient(38% 34% at 64% 96%, rgba(143, 222, 211, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.soft-shadow {
+  box-shadow: 0 24px 70px rgba(10, 60, 54, 0.12);
+}
+
+.ink-border {
+  border: 1px solid var(--line);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+}
+
+/* slow drifting pearl shimmer for hero text accent */
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.text-shimmer {
+  background: linear-gradient(100deg, var(--accent-deep), var(--accent), var(--blush), var(--accent-deep));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid var(--line);
+  background: var(--background);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  color: var(--foreground);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(18, 165, 148, 0.18);
+}
+
+/* gentle floating for non-3D decorative blobs */
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-floaty {
+  animation: floaty 7s ease-in-out infinite;
+}
+
+/* underline grow for nav links — gated hover in component */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
