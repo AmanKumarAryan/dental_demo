@@ -4,7 +4,7 @@ import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "motion/react";
 import { dental } from "@/lib/dental";
-import { ArrowIcon, WhatsappIcon } from "@/components/Icons";
+import { ArrowIcon, WhatsappIcon, CheckIcon } from "@/components/Icons";
 
 const Scene3D = dynamic(() => import("@/components/Scene3D"), {
   ssr: false,
@@ -21,13 +21,13 @@ export function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 90]);
-  const canvasY = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const canvasY = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
   return (
     <section ref={ref} id="top" className="relative overflow-hidden">
-      <div className="mx-auto max-w-6xl px-5 pt-28 pb-20 md:pt-36 md:pb-28">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+      <div className="mx-auto max-w-6xl px-5 pt-28 pb-16 md:pt-36 md:pb-24">
+        <div className="grid md:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
           <motion.div style={{ y: textY }} className="relative z-10">
             <motion.span
               initial={{ opacity: 0, y: 16 }}
@@ -44,7 +44,7 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.05, ease: [0.21, 0.47, 0.32, 0.98] }}
               className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold leading-[0.98] tracking-tight mt-5"
             >
-              A calmer kind of <span className="text-shimmer">dentist</span>.
+              Smiles we're <span className="text-shimmer">careful</span> with.
             </motion.h1>
 
             <motion.p
@@ -77,14 +77,31 @@ export function Hero() {
                 <WhatsappIcon className="w-4 h-4 text-accent" /> WhatsApp us
               </a>
             </motion.div>
+
+            <motion.ul
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.26 }}
+              className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft"
+            >
+              {["Pain-managed", "No upsell, ever", "Kids welcome"].map((t) => (
+                <li key={t} className="inline-flex items-center gap-1.5">
+                  <CheckIcon className="w-4 h-4 text-accent" /> {t}
+                </li>
+              ))}
+            </motion.ul>
           </motion.div>
 
           <motion.div
             style={{ y: canvasY }}
-            className="relative h-[340px] sm:h-[420px] md:h-[520px]"
+            className="relative flex justify-center"
           >
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-accent/10 to-blush/10 ink-border" />
-            <Scene3D />
+            <div className="relative w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[420px] md:h-[420px] rounded-full ink-border overflow-hidden bg-gradient-to-br from-accent-soft/30 to-ice/50">
+              <Scene3D />
+            </div>
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-foreground text-white text-xs font-semibold px-4 py-2 shadow-lg whitespace-nowrap">
+              Free first consult
+            </div>
           </motion.div>
         </div>
       </div>

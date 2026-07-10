@@ -9,92 +9,78 @@ const reduced =
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function Pearl() {
-  const group = useRef<THREE.Group>(null);
-  useFrame((_, delta) => {
-    if (group.current && !reduced) group.current.rotation.y += delta * 0.25;
-  });
-
-  const orbit = [
-    { a: 0, c: "#12a594", s: 0.26 },
-    { a: Math.PI * 0.66, c: "#f3b6a6", s: 0.2 },
-    { a: Math.PI * 1.33, c: "#8fded3", s: 0.22 },
-    { a: Math.PI * 1.9, c: "#d8b06a", s: 0.16 },
-  ];
+function Tooth({ position = [0, 0, 0], scale = 1 }: { position?: [number, number, number]; scale?: number }) {
+  // Incisor profile revolved around Y — reads clearly as a single-root tooth.
+  const profile = useMemo(
+    () =>
+      [
+        [0.04, -1.25],
+        [0.2, -0.75],
+        [0.19, -0.2],
+        [0.25, 0.15],
+        [0.4, 0.5],
+        [0.41, 0.85],
+        [0.22, 0.98],
+        [0.0, 1.02],
+      ].map(([x, y]) => new THREE.Vector2(x, y)),
+    []
+  );
 
   return (
-    <group ref={group}>
+    <group position={position} scale={scale} rotation={[0.18, 0, 0.05]}>
       <mesh castShadow>
-        <sphereGeometry args={[1.15, 64, 64]} />
+        <latheGeometry args={[profile, 80]} />
         <meshPhysicalMaterial
-          color="#ffffff"
-          roughness={0.18}
+          color="#fbfbf8"
+          roughness={0.22}
           clearcoat={1}
-          clearcoatRoughness={0.12}
+          clearcoatRoughness={0.14}
           sheen={0.6}
-          sheenColor="#8fded3"
+          sheenColor="#cfe6ff"
         />
       </mesh>
-      {orbit.map((o, i) => (
-        <mesh key={i} position={[Math.cos(o.a) * 2.05, Math.sin(o.a) * 0.9, Math.sin(o.a) * 2.05]}>
-          <sphereGeometry args={[o.s, 32, 32]} />
-          <meshStandardMaterial color={o.c} roughness={0.35} metalness={0.1} emissive={o.c} emissiveIntensity={0.25} />
-        </mesh>
-      ))}
-      <mesh rotation={[Math.PI / 2.3, 0, 0]}>
-        <torusGeometry args={[2.35, 0.012, 12, 140]} />
-        <meshBasicMaterial color="#12a594" wireframe />
+      {/* gum context */}
+      <mesh position={[0, -1.18, 0]} scale={[0.52, 0.26, 0.52]}>
+        <sphereGeometry args={[1, 40, 32]} />
+        <meshStandardMaterial color="#ff9aa6" roughness={0.7} />
       </mesh>
     </group>
   );
 }
 
-function Stars() {
-  const ref = useRef<THREE.Points>(null);
-  const positions = useMemo(() => {
-    const arr = new Float32Array(420 * 3);
-    for (let i = 0; i < 420; i++) {
-      const r = 4.2 + Math.random() * 4;
-      const t = Math.random() * Math.PI * 2;
-      const p = Math.acos(2 * Math.random() - 1);
-      arr[i * 3] = r * Math.sin(p) * Math.cos(t);
-      arr[i * 3 + 1] = r * Math.sin(p) * Math.sin(t);
-      arr[i * 3 + 2] = r * Math.cos(p);
-    }
-    return arr;
-  }, []);
+function Scene() {
+  const group = useRef<THREE.Group>(null);
   useFrame((_, delta) => {
-    if (ref.current && !reduced) ref.current.rotation.y += delta * 0.03;
+    if (group.current && !reduced) group.current.rotation.y += delta * 0.3;
   });
+
   return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial size={0.03} color="#8fded3" transparent opacity={0.7} sizeAttenuation />
-    </points>
+    <group ref={group}>
+      <Tooth position={[0, 0, 0]} scale={1} />
+      <Tooth position={[1.35, -0.35, -0.6]} scale={0.42} />
+      <Tooth position={[-1.25, -0.55, -0.4]} scale={0.34} />
+    </group>
   );
 }
 
 export default function Scene3D() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 6], fov: 42 }}
+      camera={{ position: [0, 0, 5.2], fov: 42 }}
       dpr={[1, 2]}
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[4, 6, 4]} intensity={1.3} />
-      <pointLight position={[-4, -2, -3]} intensity={2.2} color="#f3b6a6" />
-      <pointLight position={[4, 2, 3]} intensity={1.6} color="#12a594" />
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[3, 6, 4]} intensity={1.4} />
+      <pointLight position={[-4, -1, 2]} intensity={2.2} color="#ffd0d6" />
+      <pointLight position={[4, 2, 3]} intensity={1.4} color="#bcd8f5" />
       <Float
-        speed={reduced ? 0 : 1.3}
-        rotationIntensity={reduced ? 0 : 0.4}
-        floatIntensity={reduced ? 0 : 0.9}
+        speed={reduced ? 0 : 1.2}
+        rotationIntensity={reduced ? 0 : 0.3}
+        floatIntensity={reduced ? 0 : 0.8}
       >
-        <Pearl />
+        <Scene />
       </Float>
-      <Stars />
     </Canvas>
   );
 }

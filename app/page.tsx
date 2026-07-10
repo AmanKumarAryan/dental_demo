@@ -1,6 +1,7 @@
 import { Hero } from "@/components/Hero";
 import { Stats } from "@/components/Stats";
 import { Services } from "@/components/Services";
+import { VisitSteps } from "@/components/VisitSteps";
 import { Tech } from "@/components/Tech";
 import { BeforeAfter } from "@/components/BeforeAfter";
 import { Doctors } from "@/components/Doctors";
@@ -13,6 +14,7 @@ export default function Page() {
       <Hero />
       <Stats />
       <Services />
+      <VisitSteps />
       <Tech />
       <BeforeAfter />
       <Doctors />

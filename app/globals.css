@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Pearl Dental Studio — clinical teal + warm pearl */
-  --background: #e9f1f1;
+  /* Pearl Dental Studio — coral + ice + slate (clean clinical luxury) */
+  --background: #eef2f7;
   --paper: #ffffff;
-  --foreground: #0e2a2f;
-  --ink-soft: #5c727a;
-  --accent: #12a594;
-  --accent-deep: #0a6b60;
-  --accent-soft: #8fded3;
-  --blush: #f3b6a6;
-  --gold: #d8b06a;
-  --line: rgba(14, 42, 47, 0.12);
-  --mist: rgba(143, 222, 211, 0.18);
+  --foreground: #0f1e2b;
+  --ink-soft: #56657a;
+  --accent: #ff5d73;
+  --accent-deep: #e23a55;
+  --accent-soft: #ffc9d3;
+  --blush: #ffc9d3;
+  --gold: #e7b75f;
+  --ice: #d9e6f2;
+  --line: rgba(15, 30, 43, 0.10);
+  --mist: rgba(255, 93, 115, 0.12);
 }
 
 @theme inline {
@@ -25,6 +26,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-blush: var(--blush);
   --color-gold: var(--gold);
+  --color-ice: var(--ice);
   --color-line: var(--line);
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
@@ -51,9 +53,9 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(42% 36% at 12% 12%, rgba(18, 165, 148, 0.16), transparent 70%),
-    radial-gradient(40% 40% at 88% 8%, rgba(243, 182, 166, 0.16), transparent 72%),
-    radial-gradient(38% 34% at 64% 96%, rgba(143, 222, 211, 0.18), transparent 70%);
+    radial-gradient(42% 36% at 12% 12%, rgba(255, 93, 115, 0.14), transparent 70%),
+    radial-gradient(40% 40% at 88% 8%, rgba(231, 183, 95, 0.12), transparent 72%),
+    radial-gradient(38% 34% at 64% 96%, rgba(217, 230, 242, 0.55), transparent 70%);
   pointer-events: none;
 }
 

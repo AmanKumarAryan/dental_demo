@@ -82,6 +82,28 @@ export const dental = {
     beforeLabel: "Before",
     afterLabel: "After",
   },
+  steps: [
+    {
+      n: "01",
+      title: "Say hello",
+      desc: "Book online or just WhatsApp us. Tell us what's on your mind — no forms to dread.",
+    },
+    {
+      n: "02",
+      title: "A calm first look",
+      desc: "A gentle exam with our 3D scan. We explain what we see, and we don't rush decisions.",
+    },
+    {
+      n: "03",
+      title: "Your plan, plainly",
+      desc: "Options and prices laid out in plain language. You choose the pace — we never upsell.",
+    },
+    {
+      n: "04",
+      title: "Care, then check-ins",
+      desc: "Treatment when you're ready, with friendly follow-ups so things actually stay fixed.",
+    },
+  ],
   doctors: [
     {
       name: "Dr. Ananya Kapoor",

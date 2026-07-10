@@ -38,7 +38,7 @@ export default function RootLayout({
           className="fixed inset-0 -z-20"
           style={{
             background:
-              "radial-gradient(60% 50% at 15% 0%, rgba(143,222,211,0.25), transparent 60%), radial-gradient(50% 45% at 95% 10%, rgba(243,182,166,0.22), transparent 60%), var(--background)",
+              "radial-gradient(60% 50% at 15% 0%, rgba(255,201,211,0.45), transparent 60%), radial-gradient(50% 45% at 95% 10%, rgba(255,93,115,0.16), transparent 60%), var(--background)",
           }}
         />
         <Nav />
