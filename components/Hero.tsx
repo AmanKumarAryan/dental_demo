@@ -98,6 +98,31 @@ export function Hero() {
         </div>
       </div>
 
+      {/* scroll indicator — bottom center */}
+      <div className="flex justify-center pb-6">
+        <a
+          href="#services"
+          className="group flex flex-col items-center gap-1 text-ink-soft/50 transition-colors hover:text-accent"
+          aria-label="Scroll down"
+        >
+          <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em]">
+            Scroll
+          </span>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            className="animate-bounce"
+          >
+            <path d="M5 8l5 5 5-5" />
+          </svg>
+        </a>
+      </div>
+
       <div className="mx-auto max-w-6xl px-5">
         <div className="h-px bg-line" />
       </div>
